@@ -1,11 +1,19 @@
+import 'package:calclulator/core/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'core/utility/app_observer.dart';
 
 void main() {
-  runApp(const MyApp());
+  Bloc.observer = AppBlocObserver();
+  
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final appRouter = AppRouter();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Calculator app"),
-        ),
-        body: const Text('Flutter Demo Home Page'),
-      ),
+      onGenerateRoute: appRouter.onGenerateRoute,
     );
   }
 }
